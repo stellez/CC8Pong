@@ -19,9 +19,9 @@ public class PongServer {
         SendServerData sendData = new SendServerData(out);
         while(true){
             sendData.sendBallInfo();
-            sendData.sendRacketInfo();
-            sendData.sendScoreData();
-            System.out.println("Ball position(x,y);  (" + sendData.contx + "," + sendData.conty+ ")");
+            //sendData.sendRacketInfo();
+            //sendData.sendScoreData();
+            System.out.println("Ball position(x,y);  (" + sendData.XPos + "," + sendData.YPos+ ")");
         }
     }
 }

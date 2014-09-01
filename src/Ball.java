@@ -26,6 +26,8 @@ public class Ball extends Thread {
     }
 
     public void prepareData(int x, int y){
+        xPosition = x;
+        yPosition = y;
         data = code + "," + xPosition + "," + yPosition;
     }
 }

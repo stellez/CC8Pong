@@ -7,20 +7,21 @@ public class SendServerData {
 
     private PrintWriter outServer;
     Ball ball;
-    int contx, conty;
+    int XPos, YPos;
+    MakeFunction makeFunc;
 
     public SendServerData(PrintWriter outServer){
         this.outServer = outServer;
         ball = new Ball(outServer);
-        contx = conty = 0;
+        XPos = YPos = 0;
+        makeFunc = new MakeFunction();
     }
 
     public void sendBallInfo(){
-        outServer.println("01");
-        ball.prepareData(contx, conty);
+        YPos = makeFunc.getYPosition(XPos);
+        ball.prepareData(XPos, YPos);
         ball.run();
-        contx++;
-        conty++;
+        XPos++;
     }
 
     public void sendRacketInfo(){
