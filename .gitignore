@@ -39,5 +39,4 @@ Icon
 *.class
 .idea/workspace.xml
 .idea/uiDesigner.xml
-CC8-Pong.iml
 .gitignore
