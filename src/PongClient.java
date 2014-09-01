@@ -15,20 +15,19 @@ public class PongClient {
         PrintWriter out = new PrintWriter(pongClientSocket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(pongClientSocket.getInputStream()));
         String dataRecived;
-        while(true){
-            dataRecived = in.readLine();
-            if(dataRecived != null) {
-                if (dataRecived.equals("00")) {
-                    System.out.println("Ball Information Received");
-                } else if (dataRecived.equals("01")) {
-                    System.out.println("Racket Information Received");
-                } else if (dataRecived.equals("10")) {
-                    System.out.println("Score Information Received");
-                }
-            }else{
-                System.out.println("The data is null");
+        while((dataRecived = in.readLine()) != null){
+            String[] dataFragments = dataRecived.split(",");
+            String code = dataFragments[0];
+            String ballX = dataFragments[1];
+            String ballY = dataFragments[2];
+            if(code.equals("00")){
+                System.out.println("Ball Information Received");
+            }else if(code.equals("01")){
+                System.out.println("Racket Information Received");
+            }else if(code.equals("10")){
+                System.out.println("Score Information Received");
             }
-            System.out.println("The data received is: " + dataRecived);
+            //System.out.println("The data received is: " + dataRecived);
             //System.out.println("Information Received");
         }
     }
