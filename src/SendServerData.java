@@ -28,7 +28,7 @@ public class SendServerData {
         outServer.println("01");
     }
 
-    public void sendScoreData(){
+    public void sendScoreInfo(){
         outServer.println("10");
     }
 }

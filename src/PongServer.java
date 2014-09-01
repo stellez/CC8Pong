@@ -20,8 +20,8 @@ public class PongServer {
         while(true){
             sendData.sendBallInfo();
             //sendData.sendRacketInfo();
-            //sendData.sendScoreData();
-            System.out.println("Ball position(x,y);  (" + sendData.XPos + "," + sendData.YPos+ ")");
+            //sendData.sendScoreInfo();
+            System.out.println("Ball position(x,y);  (" + (sendData.XPos-1) + "," + sendData.YPos+ ")");
         }
     }
 }
