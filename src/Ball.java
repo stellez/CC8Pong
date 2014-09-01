@@ -17,6 +17,9 @@ public class Ball extends Thread {
 
     public void run(){
         try {
+            if(out.checkError()){
+                System.out.println("Im doing fine.");
+            }
             out.println(data);
             Thread.sleep(500);
         }catch(Exception e){

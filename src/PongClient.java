@@ -16,6 +16,11 @@ public class PongClient {
         BufferedReader in = new BufferedReader(new InputStreamReader(pongClientSocket.getInputStream()));
         String dataRecived;
         while((dataRecived = in.readLine()) != null){
+            /*String[] dataFragments = dataRecived.split(",");
+            String code = dataFragments[0];
+            String ballX = dataFragments[1];
+            String ballY = dataFragments[2];*/
+            //System.out.println("Code: " + code + "Ball pos X: " + "Ball pos Y: " + ballY);
             if(dataRecived.equals("00")){
                 System.out.println("Ball Information Received");
             }else if(dataRecived.equals("01")){
