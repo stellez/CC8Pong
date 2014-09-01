@@ -16,6 +16,7 @@ public class SendServerData {
     }
 
     public void sendBallInfo(){
+        outServer.println("01");
         ball.prepareData(contx, conty);
         ball.run();
         contx++;
