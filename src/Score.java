@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 /**
  * Created by Steven on 31/08/2014.
  */
-public class Score {
+public class Score extends Thread{
     private PrintWriter out;
     private int scoreP1, scoreP2;
     private String data, code;
@@ -11,7 +11,7 @@ public class Score {
     public Score(PrintWriter outServer){
         this.out = outServer;
         scoreP1 = scoreP2 = 0;
-        code = "010";
+        code = "10";
         data = code;
     }
 

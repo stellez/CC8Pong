@@ -11,14 +11,14 @@ public class Ball extends Thread {
     public Ball(PrintWriter outServer){
         this.out = outServer;
         xPosition = yPosition = 0;
-        code = "000";
+        code = "00";
         data = code;
     }
 
     public void run(){
         try {
             out.println(data);
-            Thread.sleep(2000);
+            Thread.sleep(500);
         }catch(Exception e){
             System.out.println("Error, " + e);
         }

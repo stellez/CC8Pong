@@ -21,7 +21,7 @@ public class PongServer {
             sendData.sendBallInfo();
             sendData.sendRacketInfo();
             sendData.sendScoreData();
-            //System.out.println("Information Submitted");
+            System.out.println("Ball position(x,y);  (" + sendData.contx + "," + sendData.conty+ ")");
         }
     }
 }

@@ -6,13 +6,20 @@ import java.io.PrintWriter;
 public class SendServerData {
 
     private PrintWriter outServer;
+    Ball ball;
+    int contx, conty;
 
     public SendServerData(PrintWriter outServer){
         this.outServer = outServer;
+        ball = new Ball(outServer);
+        contx = conty = 0;
     }
 
     public void sendBallInfo(){
-        outServer.println("00");
+        ball.prepareData(contx, conty);
+        ball.run();
+        contx++;
+        conty++;
     }
 
     public void sendRacketInfo(){

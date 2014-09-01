@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 /**
  * Created by Steven on 31/08/2014.
  */
-public class Racket {
+public class Racket extends Thread {
     private PrintWriter out;
     private int rPosition, lPosition;
     private String data, code;
@@ -11,7 +11,7 @@ public class Racket {
     public Racket(PrintWriter outServer){
         this.out = outServer;
         rPosition = lPosition = 0;
-        code = "001";
+        code = "01";
         data = code;
     }
 
