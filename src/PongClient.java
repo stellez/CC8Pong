@@ -16,7 +16,7 @@ public class PongClient {
         BufferedReader in = new BufferedReader(new InputStreamReader(pongClientSocket.getInputStream()));
         SendClientData sendClientData = new SendClientData(out);
         ReceiveClientData receiveClientData = new ReceiveClientData(in);
-        receiveClientData.run();
+        receiveClientData.start();
         int i=0;
         try {
             while (true) {
