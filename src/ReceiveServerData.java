@@ -23,16 +23,16 @@ public class ReceiveServerData extends Thread {
                 System.out.println("Reciviendo en el receiver: " + racketY);
                 if(racketY.equals("EnterPress")){
                     startGame = true;
+                }else {
+                    String[] data = racketY.split(",");
+                    String posRacket = data[1];
+                    String code = data[0];
+                    if (code.equals("01")) {
+                        System.out.println("Received left racket");
+                    } else if (code.equals("11")) {
+                        System.out.println("Received right racket");
+                    }
                 }
-                String[] data = racketY.split(",");
-                String posRacket = data[1];
-                String code = data[0];
-                if(code.equals("01")){
-                    System.out.println("Received left racket");
-                }else if(code.equals("11")){
-                    System.out.println("Received right racket");
-                }
-
             }
         } catch (IOException ioe) {
             System.out.println("ERROR: Caused by: " + ioe );

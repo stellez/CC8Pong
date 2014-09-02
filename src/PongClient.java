@@ -13,7 +13,9 @@ public class PongClient {
     public static void main(String args[]) throws IOException {
         ConnectionFrames connectionFrames = new ConnectionFrames();
         connectionFrames.start();
-        while(!connectionFrames.makeConnectionPressed);
+        while(!connectionFrames.makeConnectionPressed){
+            System.out.println(connectionFrames.makeConnectionPressed);
+        }
         Socket pongClientSocket = new Socket(connectionFrames.ipAddressFromJTextfield, 4502);
         System.out.println("Connection Accepted");
         PrintWriter out = new PrintWriter(pongClientSocket.getOutputStream());
@@ -23,6 +25,7 @@ public class PongClient {
         LoadMenu menuClient = new LoadMenu(connectionFrames.frameWindow, 1);
         menuClient.loadSelector();
         receiveClientData.start();
+        menuClient.setSenderClient(sendClientData);
        /* try {
             while (true) {
                 sendClientData.sendData("11,0");

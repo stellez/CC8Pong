@@ -39,7 +39,11 @@ public class LoadGame implements ImageObserver, KeyListener{
 
     public LoadGame(JFrame frameWindow, int id ){
         this.frameWindow = frameWindow;
-        this.frameWindow.setTitle("Pong");
+        if(id == 0) {
+            this.frameWindow.setTitle("Player 1");
+        }else{
+            this.frameWindow.setTitle("Player 2");
+        }
         frameWindow.addKeyListener(this);
         view = new JLabel();
         surface = null;

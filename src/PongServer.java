@@ -15,7 +15,9 @@ public class PongServer {
         Socket pongServerSocket;
         ConnectionFrames connectionFrames = new ConnectionFrames();
         connectionFrames.start();
-        while(!connectionFrames.waitForAConnectionPressed);
+        while(!connectionFrames.waitForAConnectionPressed){
+            System.out.println(connectionFrames.waitForAConnectionPressed);
+        }
         ServerSocket pongServer = new ServerSocket(4502);
         System.out.println("Waiting for a connection...");
         pongServerSocket = pongServer.accept();
