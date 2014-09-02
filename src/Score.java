@@ -20,6 +20,7 @@ public class Score extends Thread{
             out.println(data);
         }catch(Exception e){
             System.out.println("Error, " + e);
+            e.printStackTrace();
         }
     }
 

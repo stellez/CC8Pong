@@ -1,5 +1,4 @@
 import view.ConnectionFrames;
-import view.LoadMenu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,16 +26,8 @@ public class PongServer {
         ReceiveServerData inData = new ReceiveServerData(in);
         LoadMenu menuServer = new LoadMenu(connectionFrames.frameWindow, 0);
         menuServer.loadSelector();
-        while(!menuServer.startGameServer || !menuServer.startGameClient){
-            System.out.println("startGameServer: "+ menuServer.startGameServer);
-            System.out.println("startGameClient: "+menuServer.startGameClient);
-            try {
-                connectionFrames.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        sendData.start();
         inData.start();
+        while(!inData.startGame || !menuServer.startGameServer);
+        sendData.start();
     }
 }

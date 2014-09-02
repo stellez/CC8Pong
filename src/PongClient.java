@@ -1,11 +1,9 @@
 import view.ConnectionFrames;
-import view.LoadMenu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -24,27 +22,15 @@ public class PongClient {
         ReceiveClientData receiveClientData = new ReceiveClientData(in);
         LoadMenu menuClient = new LoadMenu(connectionFrames.frameWindow, 1);
         menuClient.loadSelector();
-        while(!menuClient.startGameServer || !menuClient.startGameClient){
-            System.out.println("startGameServer: "+ menuClient.startGameServer);
-            System.out.println("startGameClient: "+menuClient.startGameClient);
-            try {
-                connectionFrames.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         receiveClientData.start();
-        int i=0;
-        try {
+       /* try {
             while (true) {
-                sendClientData.sendData("11,"+ i++);
-                //System.out.println("The data received is: " + dataRecived);
-                //System.out.println("Information Received");
+                sendClientData.sendData("11,0");
                 System.out.println("Information was send to the server");
                 sendClientData.sleep(1000);
             }
         }catch(Exception e){
             System.err.println("Error, caused by: " + e);
-        }
+        }*/
     }
 }

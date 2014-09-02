@@ -9,15 +9,21 @@ import java.io.PrintWriter;
 public class ReceiveServerData extends Thread {
     BufferedReader infromClient;
     String racketY;
+    boolean startGame;
 
     public ReceiveServerData(BufferedReader in){
-         this.infromClient = new BufferedReader(in);
+        this.infromClient = new BufferedReader(in);
+        this.startGame = false;
+        this.racketY = "";
     }
     public void run(){
         try {
             while(true) {
                 racketY = infromClient.readLine();
                 System.out.println("Reciviendo en el receiver: " + racketY);
+                if(racketY.equals("EnterPress")){
+                    startGame = true;
+                }
                 String[] data = racketY.split(",");
                 String posRacket = data[1];
                 String code = data[0];
@@ -30,6 +36,7 @@ public class ReceiveServerData extends Thread {
             }
         } catch (IOException ioe) {
             System.out.println("ERROR: Caused by: " + ioe );
+            ioe.printStackTrace();
         }
     }
 
