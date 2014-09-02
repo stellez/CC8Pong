@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 public class Racket extends Thread {
     private PrintWriter out;
     private int rPosition, lPosition;
-    private String data, code;
+    private String data, code, event;
 
     public Racket(PrintWriter outServer){
         this.out = outServer;
@@ -17,7 +17,9 @@ public class Racket extends Thread {
 
     public void run(){
         try {
+
             out.println(data);
+
         }catch(Exception e){
             System.out.println("Error, " + e);
         }

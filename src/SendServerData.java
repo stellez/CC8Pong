@@ -3,7 +3,7 @@ import java.io.PrintWriter;
 /**
  * Created by Steven on 31/08/2014.
  */
-public class SendServerData {
+public class SendServerData extends Thread{
 
     private PrintWriter outServer;
     Ball ball;
@@ -30,5 +30,14 @@ public class SendServerData {
 
     public void sendScoreInfo(){
         outServer.println("10");
+    }
+
+    public void run(){
+        while(true){
+            sendBallInfo();
+            //sendData.sendRacketInfo();
+            //sendData.sendScoreInfo();
+            System.out.println("Ball position(x,y);  (" + (XPos-1) + "," + YPos+ ")");
+        }
     }
 }

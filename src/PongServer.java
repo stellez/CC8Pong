@@ -17,11 +17,6 @@ public class PongServer {
         PrintWriter out = new PrintWriter(pongServerSocket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(pongServerSocket.getInputStream()));
         SendServerData sendData = new SendServerData(out);
-        while(true){
-            sendData.sendBallInfo();
-            //sendData.sendRacketInfo();
-            //sendData.sendScoreInfo();
-            System.out.println("Ball position(x,y);  (" + (sendData.XPos-1) + "," + sendData.YPos+ ")");
-        }
+        sendData.run();
     }
 }
