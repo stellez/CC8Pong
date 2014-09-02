@@ -17,7 +17,7 @@ public class SendClientData extends Thread{
         outClient.println(data);
         outClient.flush();
     }
-    
+
     public void sendData(String dataToSend){
         data = dataToSend;
         this.run();

@@ -25,18 +25,18 @@ public class SendServerData extends Thread{
     }
 
     public void sendRacketInfo(){
-        outServer.println("01");
+        outServer.println("01,02,03");
     }
 
     public void sendScoreInfo(){
-        outServer.println("10");
+        outServer.println("10,15,16");
     }
 
     public void run(){
         while(true){
             sendBallInfo();
-            //sendData.sendRacketInfo();
-            //sendData.sendScoreInfo();
+            sendRacketInfo();
+            sendScoreInfo();
             System.out.println("Ball position(x,y);  (" + (XPos-1) + "," + YPos+ ")");
         }
     }

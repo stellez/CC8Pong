@@ -14,21 +14,20 @@ public class PongClient {
         System.out.println("Connection Accepted");
         PrintWriter out = new PrintWriter(pongClientSocket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(pongClientSocket.getInputStream()));
-        String dataRecived;
-        while((dataRecived = in.readLine()) != null){
-            String[] dataFragments = dataRecived.split(",");
-            String code = dataFragments[0];
-            String ballX = dataFragments[1];
-            String ballY = dataFragments[2];
-            if(code.equals("00")){
-                System.out.println("Ball Information Received");
-            }else if(code.equals("01")){
-                System.out.println("Racket Information Received");
-            }else if(code.equals("10")){
-                System.out.println("Score Information Received");
+        SendClientData sendClientData = new SendClientData(out);
+        ReceiveClientData receiveClientData = new ReceiveClientData(in);
+        receiveClientData.run();
+        int i=0;
+        try {
+            while (true) {
+                sendClientData.sleep(1000);
+                sendClientData.sendData("11,"+ i++);
+                //System.out.println("The data received is: " + dataRecived);
+                //System.out.println("Information Received");
+                System.out.println("Information was send to the server");
             }
-            //System.out.println("The data received is: " + dataRecived);
-            //System.out.println("Information Received");
+        }catch(Exception e){
+            System.err.println("Error, caused by: " + e);
         }
     }
 }

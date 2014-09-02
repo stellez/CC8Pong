@@ -12,6 +12,7 @@ public class PongServer {
     public static void main(String args[]) throws IOException{
         Socket pongServerSocket;
         ServerSocket pongServer = new ServerSocket(4502);
+        System.out.println("Waiting for a connection...");
         pongServerSocket = pongServer.accept();
         System.out.println("Connection Accepted");
         PrintWriter out = new PrintWriter(pongServerSocket.getOutputStream());
