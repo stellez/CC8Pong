@@ -10,8 +10,8 @@ public class SendServerData {
     int XPos, YPos;
     MakeFunction makeFunc;
 
-    public SendServerData(PrintWriter outServer){
-        this.outServer = outServer;
+    public SendServerData(PrintWriter outToClient){
+        this.outServer = outToClient;
         ball = new Ball(outServer);
         XPos = YPos = 0;
         makeFunc = new MakeFunction();
