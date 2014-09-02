@@ -20,7 +20,7 @@ public class SendServerData extends Thread{
     public void sendBallInfo(){
         YPos = makeFunc.getYPosition(XPos);
         ball.prepareData(XPos, YPos);
-        ball.start();
+        ball.run();
         XPos++;
     }
 
