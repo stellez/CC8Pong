@@ -6,26 +6,20 @@ import java.io.PrintWriter;
 public class Racket extends Thread {
     private PrintWriter out;
     private int rPosition, lPosition;
-    private String data, code, event;
+    private String dataLeft, dataRight, codeLeft,codeRight, event;
 
-    public Racket(PrintWriter outServer){
-        this.out = outServer;
+    public Racket(){
         rPosition = lPosition = 0;
-        code = "01";
-        data = code;
+        codeLeft = "01";
+        codeRight = "11";
+        dataLeft = codeLeft;
+        dataRight = codeRight;
     }
 
-    public void run(){
-        try {
-
-            out.println(data);
-
-        }catch(Exception e){
-            System.out.println("Error, " + e);
-        }
+    public void prepareDataLeftRacket(int x, int y){
+        dataLeft = codeLeft + "," + rPosition + "," + lPosition;
     }
-
-    public void prepareData(int x, int y){
-        data = code + "," + rPosition + "," + lPosition;
+    public void prepareDataRighRacket(int x, int y){
+        dataRight = codeRight + "," + rPosition + "," + lPosition;
     }
 }
