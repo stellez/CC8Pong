@@ -12,22 +12,32 @@ import java.net.Socket;
  */
 public class PongServer {
     public static void main(String args[]) throws IOException{
-        Socket pongServerSocket;
-        ConnectionFrames connectionFrames = new ConnectionFrames();
-        connectionFrames.start();
-        while(!connectionFrames.waitForAConnectionPressed);
-        ServerSocket pongServer = new ServerSocket(4502);
-        System.out.println("Waiting for a connection...");
-        pongServerSocket = pongServer.accept();
-        System.out.println("Connection Accepted");
-        PrintWriter out = new PrintWriter(pongServerSocket.getOutputStream());
-        BufferedReader in = new BufferedReader(new InputStreamReader(pongServerSocket.getInputStream()));
-        SendServerData sendData = new SendServerData(out);
-        ReceiveServerData inData = new ReceiveServerData(in);
-        LoadMenu menuServer = new LoadMenu(connectionFrames.frameWindow, 0);
-        menuServer.loadSelector();
-        inData.start();
-        while(!inData.startGame || !menuServer.startGameServer);
-        sendData.start();
+        try {
+            Socket pongServerSocket;
+            ConnectionFrames connectionFrames = new ConnectionFrames();
+            connectionFrames.start();
+            System.out.println("Executing program");
+            boolean state;
+            while (!connectionFrames.waitForAConnectionPressed) {
+                state = connectionFrames.waitForAConnectionPressed;
+            }
+            ServerSocket pongServer = new ServerSocket(4502);
+            System.out.println("Waiting for a connection...");
+            pongServerSocket = pongServer.accept();
+            System.out.println("Connection Accepted");
+            PrintWriter out = new PrintWriter(pongServerSocket.getOutputStream());
+            BufferedReader in = new BufferedReader(new InputStreamReader(pongServerSocket.getInputStream()));
+            SendServerData sendData = new SendServerData(out);
+            ReceiveServerData inData = new ReceiveServerData(in);
+            LoadMenu menuServer = new LoadMenu(connectionFrames.frameWindow, 0);
+            menuServer.loadSelector();
+            inData.start();
+            while (!inData.startGame || !menuServer.startGameServer) ;
+            sendData.start();
+        }catch(IOException ioe){
+            ioe.printStackTrace();
+        }catch(Exception e ){
+            e.printStackTrace();
+        }
     }
 }

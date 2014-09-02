@@ -18,7 +18,7 @@ public class ConnectionFrames extends Thread {
     private void createConnectionWindow(){
         try {
             frameWindow = new JFrame("Pong");
-            frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             final JPanel viewPanel = new JPanel();
             viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
             JLabel title = new JLabel("Pong Connection");
