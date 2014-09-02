@@ -20,16 +20,18 @@ public class SendServerData extends Thread{
     public void sendBallInfo(){
         YPos = makeFunc.getYPosition(XPos);
         ball.prepareData(XPos, YPos);
-        ball.run();
+        ball.start();
         XPos++;
     }
 
     public void sendRacketInfo(){
         outServer.println("01,02,03");
+        outServer.flush();
     }
 
     public void sendScoreInfo(){
         outServer.println("10,15,16");
+        outServer.flush();
     }
 
     public void run(){
