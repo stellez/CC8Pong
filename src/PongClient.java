@@ -16,15 +16,16 @@ public class PongClient {
         BufferedReader in = new BufferedReader(new InputStreamReader(pongClientSocket.getInputStream()));
         SendClientData sendClientData = new SendClientData(out);
         ReceiveClientData receiveClientData = new ReceiveClientData(in);
-        receiveClientData.run();
+        receiveClientData.start();
+        System.out.println("Testing..............");
         int i=0;
         try {
             while (true) {
-                sendClientData.sleep(1000);
                 sendClientData.sendData("11,"+ i++);
                 //System.out.println("The data received is: " + dataRecived);
                 //System.out.println("Information Received");
                 System.out.println("Information was send to the server");
+                sendClientData.sleep(1000);
             }
         }catch(Exception e){
             System.err.println("Error, caused by: " + e);
