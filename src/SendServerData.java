@@ -35,7 +35,7 @@ public class SendServerData extends Thread{
     public void run(){
         while(true){
             sendBallInfo();
-            //sendData.sendRacketInfo();
+            sendRacketInfo();
             //sendData.sendScoreInfo();
             System.out.println("Ball position(x,y);  (" + (XPos-1) + "," + YPos+ ")");
         }

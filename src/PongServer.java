@@ -17,6 +17,8 @@ public class PongServer {
         PrintWriter out = new PrintWriter(pongServerSocket.getOutputStream());
         BufferedReader in = new BufferedReader(new InputStreamReader(pongServerSocket.getInputStream()));
         SendServerData sendData = new SendServerData(out);
+        ReceiveServerData inData = new ReceiveServerData(in);
         sendData.run();
+        inData.run();
     }
 }
