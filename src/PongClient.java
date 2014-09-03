@@ -24,19 +24,8 @@ public class PongClient {
         ReceiveClientData receiveClientData = new ReceiveClientData(in);
         LoadMenu menuClient = new LoadMenu(connectionFrames.frameWindow, 1);
         menuClient.loadSelector();
+        menuClient.setSenderClient(sendClientData);
         receiveClientData.start();
 
-        System.out.println("Testing..............");
-
-        int i=0;
-       /* try {
-            while (true) {
-                sendClientData.sendData("11,0");
-                System.out.println("Information was send to the server");
-                sendClientData.sleep(1000);
-            }
-        }catch(Exception e){
-            System.err.println("Error, caused by: " + e);
-        }*/
     }
 }

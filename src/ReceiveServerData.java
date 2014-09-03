@@ -10,8 +10,9 @@ public class ReceiveServerData extends Thread {
     BufferedReader infromClient;
     String racketY;
     boolean startGame;
+    LoadGame gameServer;
 
-    public ReceiveServerData(BufferedReader in){
+    public ReceiveServerData(BufferedReader in ){
         this.infromClient = new BufferedReader(in);
         this.startGame = false;
         this.racketY = "";
@@ -23,16 +24,19 @@ public class ReceiveServerData extends Thread {
                 System.out.println("Reciviendo en el receiver: " + racketY);
                 if(racketY.equals("EnterPress")){
                     startGame = true;
-                }
-                String[] data = racketY.split(",");
-                String posRacket = data[1];
-                String code = data[0];
-                if(code.equals("01")){
-                    System.out.println("Received left racket");
-                }else if(code.equals("11")){
-                    System.out.println("Received right racket");
-                }
+                }else {
+                    String[] data = racketY.split(",");
+                    String posRacket = data[1];
+                    String code = data[0];
+                    if (code.equals("01")) {
+                        System.out.println("Received left racket");
+                        gameServer.racketLeft(Integer.parseInt(posRacket));
+                    } else if (code.equals("11")) {
+                        System.out.println("Received right racket");
+                        gameServer.racketRight(Integer.parseInt(posRacket));
 
+                    }
+                }
             }
         } catch (IOException ioe) {
             System.out.println("ERROR: Caused by: " + ioe );
@@ -40,8 +44,7 @@ public class ReceiveServerData extends Thread {
         }
     }
 
-
-
-
-
+    public void setLoadGame(LoadGame gameServer){
+        this.gameServer = gameServer;
+    }
 }

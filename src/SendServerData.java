@@ -24,21 +24,19 @@ public class SendServerData extends Thread{
         XPos++;
     }
 
-    public void sendRacketInfo(){
-        outServer.println("01,02,03");
+    public void sendRacketInfo(String data){
+        outServer.println(data);
         outServer.flush();
     }
 
-    public void sendScoreInfo(){
-        outServer.println("10,15,16");
+    public void sendScoreInfo(String data){
+        outServer.println(data);
         outServer.flush();
     }
 
     public void run(){
         while(true){
             sendBallInfo();
-            sendRacketInfo();
-            sendScoreInfo();
             System.out.println("Ball position(x,y);  (" + (XPos-1) + "," + YPos+ ")");
         }
     }

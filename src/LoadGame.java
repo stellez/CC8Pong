@@ -1,5 +1,3 @@
-package view;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -36,10 +34,17 @@ public class LoadGame implements ImageObserver, KeyListener{
     String rightRacketPath = "src/images/racket_r.png";
     File rightRacketFile = new File(rightRacketPath);
     Image rightRacketImage;
+    SendClientData sendClientData;
+    SendServerData sendServerData;
+
 
     public LoadGame(JFrame frameWindow, int id ){
         this.frameWindow = frameWindow;
-        this.frameWindow.setTitle("Pong");
+        if(id == 0) {
+            this.frameWindow.setTitle("Player 1");
+        }else{
+            this.frameWindow.setTitle("Player 2");
+        }
         frameWindow.addKeyListener(this);
         view = new JLabel();
         surface = null;
@@ -59,7 +64,6 @@ public class LoadGame implements ImageObserver, KeyListener{
     }
 
     public void keyPressed(KeyEvent e){
-        System.out.println("gamerID: " + gamerID);
         if(e.isActionKey()) {
             if (KeyEvent.VK_DOWN == e.getKeyCode()) {
                 if(YPosLeft < 185 && gamerID == 0) {
@@ -68,18 +72,25 @@ public class LoadGame implements ImageObserver, KeyListener{
                 if( YPosRight < 185 && gamerID == 1) {
                     YPosRight += 5;
                 }
-                System.out.println("Y Position: " + YPosLeft);
+                if(gamerID == 0){
+                    sendServerData.sendRacketInfo("01," + YPosLeft);
+                }else if(gamerID == 1){
+                    sendClientData.sendData("11," + YPosRight);
+                }
                 racketLeft(YPosLeft);
                 racketRight(YPosRight);
             } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-                System.out.println(YPosLeft>-155);
                 if(YPosLeft > -155 && gamerID == 0) {
                     YPosLeft -= 5;
                 }
                 if(YPosRight > -155 && gamerID == 1) {
                     YPosRight -= 5;
                 }
-                System.out.println("Y Position: " + YPosLeft);
+                if(gamerID == 0){
+                    sendServerData.sendRacketInfo("01," + YPosLeft);
+                }else if(gamerID == 1){
+                    sendClientData.sendData("11," + YPosRight);
+                }
                 racketLeft(YPosLeft);
                 racketRight(YPosRight);
             }
@@ -157,4 +168,13 @@ public class LoadGame implements ImageObserver, KeyListener{
             System.out.println("Error caused by: " + ioe);
         }
     }
+    public void setSenderClient(SendClientData scd){
+        this.sendClientData = scd;
+    }
+
+    public void setSenderServer(SendServerData ssd){
+        this.sendServerData = ssd;
+    }
+
+
 }

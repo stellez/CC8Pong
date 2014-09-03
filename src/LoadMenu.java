@@ -1,5 +1,3 @@
-import view.LoadGame;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +26,8 @@ public class LoadMenu implements ImageObserver, KeyListener {
     private Image selectorImage;
     private SendServerData sendServerData;
     private SendClientData sendClientData;
+    private ReceiveServerData receiveServerData;
+    private ReceiveClientData receiveClientData;
     boolean startGameServer;
 
     public LoadMenu(JFrame frameWindow, int id){
@@ -75,6 +75,9 @@ public class LoadMenu implements ImageObserver, KeyListener {
                         sendClientData.sendData("EnterPress");
                     }
                     LoadGame loadGame = new LoadGame(frameWindow,gamerID);
+                    loadGame.setSenderServer(sendServerData);
+                    loadGame.setSenderClient(sendClientData);
+                    //receiveClientData.setLoadGame(loadGame);
                     loadGame.background();
                     loadGame.ball(0,0);
                     loadGame.racketLeft(0);
