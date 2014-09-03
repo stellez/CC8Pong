@@ -23,8 +23,9 @@ public class PongClient {
         SendClientData sendClientData = new SendClientData(out);
         ReceiveClientData receiveClientData = new ReceiveClientData(in);
         LoadMenu menuClient = new LoadMenu(connectionFrames.frameWindow, 1);
-        menuClient.loadSelector();
+        menuClient.setReceiveClient(receiveClientData);
         menuClient.setSenderClient(sendClientData);
+        menuClient.loadSelector();
         receiveClientData.start();
 
     }

@@ -28,6 +28,7 @@ public class PongServer {
         ReceiveServerData inData = new ReceiveServerData(in);
         LoadMenu menuServer = new LoadMenu(connectionFrames.frameWindow, 0);
         menuServer.loadSelector();
+        menuServer.setReceiveServer(inData);
         inData.start();
         menuServer.setSenderServer(sendData);
         while(!inData.startGame || !menuServer.startGameServer){

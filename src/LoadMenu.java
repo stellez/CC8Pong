@@ -69,15 +69,17 @@ public class LoadMenu implements ImageObserver, KeyListener {
                 System.out.println("Pressed Enter");
                 if(selectorPosition){
                     frameWindow.removeKeyListener(this);
+                    LoadGame loadGame = new LoadGame(frameWindow,gamerID);
                     if(gamerID == 0){
                         startGameServer=true;
+                        loadGame.setSenderServer(sendServerData);
+                        receiveServerData.setLoadGame(loadGame);
+
                     }else if(gamerID == 1){
                         sendClientData.sendData("EnterPress");
+                        loadGame.setSenderClient(sendClientData);
+                        receiveClientData.setLoadGame(loadGame);
                     }
-                    LoadGame loadGame = new LoadGame(frameWindow,gamerID);
-                    loadGame.setSenderServer(sendServerData);
-                    loadGame.setSenderClient(sendClientData);
-                    //receiveClientData.setLoadGame(loadGame);
                     loadGame.background();
                     loadGame.ball(0,0);
                     loadGame.racketLeft(0);
@@ -138,4 +140,13 @@ public class LoadMenu implements ImageObserver, KeyListener {
     public void setSenderServer(SendServerData ssd){
         this.sendServerData = ssd;
     }
+
+    public void setReceiveClient(ReceiveClientData rcd){
+        this.receiveClientData = rcd;
+    }
+
+    public void setReceiveServer(ReceiveServerData rsd){
+        this.receiveServerData = rsd;
+    }
+
 }

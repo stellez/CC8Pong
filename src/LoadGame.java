@@ -37,6 +37,8 @@ public class LoadGame implements ImageObserver, KeyListener{
     SendClientData sendClientData;
     SendServerData sendServerData;
 
+    Graphics g;
+
 
     public LoadGame(JFrame frameWindow, int id ){
         this.frameWindow = frameWindow;
@@ -137,11 +139,14 @@ public class LoadGame implements ImageObserver, KeyListener{
     }
 
     public void racketLeft(int YPos){
+        this.YPosLeft = YPos;
         try {
-            Graphics g = surface.getGraphics();
+            background();
+            racketRight(YPosRight);
+            g = surface.getGraphics();
             leftRacketImage = ImageIO.read(leftRacketFile);
             g.setColor(Color.blue);
-            g.drawImage(leftRacketImage, -402, YPos, this);
+            g.drawImage(leftRacketImage, -402, YPosLeft, this);
             g.dispose();
             view.repaint();
         } catch (HeadlessException hle) {
@@ -152,14 +157,14 @@ public class LoadGame implements ImageObserver, KeyListener{
     }
 
     public void racketRight(int YPos){
+        this.YPosRight = YPos;
         try {
             background();
-            ball(0,0);
             racketLeft(YPosLeft);
-            Graphics g = surface.getGraphics();
+            g = surface.getGraphics();
             rightRacketImage = ImageIO.read(rightRacketFile);
             g.setColor(Color.blue);
-            g.drawImage(rightRacketImage, 400, YPos, this);
+            g.drawImage(rightRacketImage, 400, YPosRight, this);
             g.dispose();
             view.repaint();
         } catch (HeadlessException hle) {
@@ -176,5 +181,8 @@ public class LoadGame implements ImageObserver, KeyListener{
         this.sendServerData = ssd;
     }
 
+    public void onlyBackground(){
+
+    }
 
 }

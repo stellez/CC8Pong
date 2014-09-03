@@ -8,6 +8,7 @@ public class ReceiveClientData extends Thread {
 
     private BufferedReader inClient;
     private String dataReceived;
+    private LoadGame clientGame;
 
     public ReceiveClientData(BufferedReader inFromServer){
         this.inClient = inFromServer;
@@ -36,8 +37,10 @@ public class ReceiveClientData extends Thread {
                     System.out.println("Received Raquet info");
                     if(code.equals("01")){
                         racketL = dataFragments[1];
+                        clientGame.racketLeft(Integer.parseInt(racketL));
                     }else{
                         racketR = dataFragments[1];
+                        clientGame.racketRight(Integer.parseInt(racketR));
                     }
                 }else if(code.equals("10")){
                     System.out.println("Received Score info");
@@ -51,4 +54,9 @@ public class ReceiveClientData extends Thread {
             ioe.printStackTrace();
         }
     }
+
+    public void setLoadGame(LoadGame clientGame){
+        this.clientGame = clientGame;
+    }
+
 }
