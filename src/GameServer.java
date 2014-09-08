@@ -14,7 +14,7 @@ import java.util.HashSet;
 /**
  * Created by mario on 7/09/14.
  */
-public class GameServer extends JPanel implements KeyListener, ActionListener {
+public class GameServer extends JPanel implements KeyListener, ActionListener, Runnable {
 
     private int height, width;
     private Timer t = new Timer(5, this);
@@ -145,15 +145,9 @@ public class GameServer extends JPanel implements KeyListener, ActionListener {
         switch (code) {
             case KeyEvent.VK_LEFT:
                 keys.add("LEFT");
-                serverOut.println("01,"+topPadX);
-                serverOut.flush();
-                System.out.println("Send from Server: 01,"+topPadX);
                 break;
             case KeyEvent.VK_RIGHT:
                 keys.add("RIGHT");
-                serverOut.println("01,"+topPadX);
-                serverOut.flush();
-                System.out.println("Send from Serer: 01,"+topPadX);
                 break;
         }
     }
@@ -164,10 +158,64 @@ public class GameServer extends JPanel implements KeyListener, ActionListener {
         switch (code) {
             case KeyEvent.VK_LEFT:
                 keys.remove("LEFT");
+                serverOut.println("01,"+topPadX);
+                serverOut.flush();
+                System.out.println("Send from Server: 01,"+topPadX);
                 break;
             case KeyEvent.VK_RIGHT:
                 keys.remove("RIGHT");
+                serverOut.println("01,"+topPadX);
+                serverOut.flush();
+                System.out.println("Send from Serer: 01,"+topPadX);
                 break;
+        }
+    }
+
+    public void run(){
+        String[] dataFragments;
+        String code;
+        String ballX;
+        String ballY;
+        String padTop;
+        String padBottom;
+        String scoreL;
+        String scoreR;
+        String dataReceived;
+        try {
+            while(true){
+                System.out.println("Executing run method");
+                dataReceived = serverIn.readLine();
+                System.out.println("Data Received is: " + dataReceived);
+                dataFragments = dataReceived.split(",");
+                code = dataFragments[0];
+                if(dataFragments != null) {
+                    if (code.equals("00")) {
+                        System.out.println("Received Ball info");
+                        ballX = dataFragments[1];
+                        ballY = dataFragments[2];
+                    } else if (code.equals("01") || code.equals("10")) {
+                        if (code.equals("01")) {
+                            padTop = dataFragments[1];
+                            System.out.println("Received top pad info");
+                            topPadX = Integer.parseInt(padTop);
+                        } else if (code.equals("10")){
+                            padBottom = dataFragments[1];
+                            System.out.println("Received bottom pad info");
+                            bottomPadX = Integer.parseInt(padBottom);
+                        }
+                    } else if (code.equals("11")) {
+                        System.out.println("Received Score info");
+                        scoreL = dataFragments[1];
+                        scoreR = dataFragments[2];
+                    }
+                }else{
+                    System.out.print("Error, bad formed data");
+                }
+            }
+        }
+        catch (IOException ioe) {
+            System.err.println("Error, caused by: " + ioe);
+            ioe.printStackTrace();
         }
     }
 }
