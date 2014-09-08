@@ -21,6 +21,8 @@ public class PongClient {
         Socket pongClientSocket = new Socket(connectionFrames.getIPAddress(), 4502);
         System.out.println("Connection Accepted");
         JFrame frm = connectionFrames.getWindow();
+        frm.dispose();
+        frm = new JFrame();
         frm.setTitle("Player 2");
         GameClient g = new GameClient(pongClientSocket.getInputStream(), pongClientSocket.getOutputStream());
         frm.setContentPane(g);
