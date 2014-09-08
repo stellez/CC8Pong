@@ -145,15 +145,9 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
         switch (code) {
             case KeyEvent.VK_LEFT:
                 keys.add("LEFT");
-                clientOut.println("10,"+bottomPadX);
-                clientOut.flush();
-                System.out.println("Sended: " + "10,"+bottomPadX);
                 break;
             case KeyEvent.VK_RIGHT:
                 keys.add("RIGHT");
-                clientOut.println("10,"+bottomPadX);
-                clientOut.flush();
-                System.out.println("Sended: " + "10,"+bottomPadX);
                 break;
         }
     }
@@ -164,9 +158,15 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
         switch (code) {
             case KeyEvent.VK_LEFT:
                 keys.remove("LEFT");
+                clientOut.println("10,"+bottomPadX);
+                clientOut.flush();
+                System.out.println("Sended: " + "10,"+bottomPadX);
                 break;
             case KeyEvent.VK_RIGHT:
                 keys.remove("RIGHT");
+                clientOut.println("10,"+bottomPadX);
+                clientOut.flush();
+                System.out.println("Sended: " + "10,"+bottomPadX);
                 break;
         }
     }
