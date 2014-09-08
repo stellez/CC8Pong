@@ -44,6 +44,7 @@ public class GameServer extends JPanel implements KeyListener, ActionListener {
         setFocusTraversalKeysEnabled(false);
         serverOut = new PrintWriter(os);
         serverIn = new BufferedReader(new InputStreamReader(is));
+        serverOut.flush();
         first = true;
         t.setInitialDelay(100);
         t.start();
@@ -116,10 +117,10 @@ public class GameServer extends JPanel implements KeyListener, ActionListener {
         // pressed keys
         if (keys.size() == 1) {
             if (keys.contains("LEFT")) {
-                bottomPadX -= (bottomPadX > 0) ? SPEED : 0;
+                topPadX -= (topPadX > 0) ? SPEED : 0;
             }
             else if (keys.contains("RIGHT")) {
-                bottomPadX += (bottomPadX < width - padW) ? SPEED : 0;
+                topPadX += (topPadX < width - padW) ? SPEED : 0;
             }
         }
         /*
@@ -144,9 +145,15 @@ public class GameServer extends JPanel implements KeyListener, ActionListener {
         switch (code) {
             case KeyEvent.VK_LEFT:
                 keys.add("LEFT");
+                serverOut.println("01,"+topPadX);
+                serverOut.flush();
+                System.out.println("Send from Server: 01,"+topPadX);
                 break;
             case KeyEvent.VK_RIGHT:
                 keys.add("RIGHT");
+                serverOut.println("01,"+topPadX);
+                serverOut.flush();
+                System.out.println("Send from Serer: 01,"+topPadX);
                 break;
         }
     }
