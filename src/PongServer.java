@@ -29,5 +29,7 @@ public class PongServer {
         frm.setResizable(false);
         frm.setVisible(true);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Thread serverReceiver = new Thread(gs);
+        serverReceiver.start();
     }
 }
