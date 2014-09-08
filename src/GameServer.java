@@ -35,15 +35,15 @@ public class GameServer extends JPanel implements KeyListener, ActionListener {
     private int scoreTop, scoreBottom;
 
     //Buffers
-    private PrintWriter out;
-    private BufferedReader in;
+    private PrintWriter serverOut;
+    private BufferedReader serverIn;
 
     public GameServer(InputStream is, OutputStream os) {
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
-        out = new PrintWriter(os);
-        in = new BufferedReader(new InputStreamReader(is));
+        serverOut = new PrintWriter(os);
+        serverIn = new BufferedReader(new InputStreamReader(is));
         first = true;
         t.setInitialDelay(100);
         t.start();
