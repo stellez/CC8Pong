@@ -20,9 +20,11 @@ public class PongServer {
         Socket pongServerSocket = pongServer.accept();
         System.out.println("Connection Accepted");
         JFrame frm = connectionFrames.getWindow();
+        frm.dispose();
+        frm = new JFrame();
         frm.setTitle("Player 1");
-        GameServer g = new GameServer(pongServerSocket.getInputStream(), pongServerSocket.getOutputStream());
-        frm.setContentPane(g);
+        GameServer gs = new GameServer(pongServerSocket.getInputStream(), pongServerSocket.getOutputStream());
+        frm.setContentPane(gs);
         frm.setSize(300, 700);
         frm.setResizable(false);
         frm.setVisible(true);
