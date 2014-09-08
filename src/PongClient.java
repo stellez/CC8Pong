@@ -30,5 +30,7 @@ public class PongClient {
         frm.setResizable(false);
         frm.setVisible(true);
         frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Thread clientReceiver = new Thread(g);
+        clientReceiver.start();
     }
 }
