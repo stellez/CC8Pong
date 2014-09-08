@@ -1,5 +1,6 @@
 import view.ConnectionFrames;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,34 +13,19 @@ import java.net.Socket;
  */
 public class PongServer {
     public static void main(String args[]) throws IOException{
-        Socket pongServerSocket;
         ConnectionFrames connectionFrames = new ConnectionFrames();
-        connectionFrames.start();
-        while(!connectionFrames.waitForAConnectionPressed){
-            System.out.println(connectionFrames.waitForAConnectionPressed);
-        }
+        connectionFrames.createServerWindow();
         ServerSocket pongServer = new ServerSocket(4502);
         System.out.println("Waiting for a connection...");
-        pongServerSocket = pongServer.accept();
+        Socket pongServerSocket = pongServer.accept();
         System.out.println("Connection Accepted");
-        PrintWriter out = new PrintWriter(pongServerSocket.getOutputStream());
-        BufferedReader in = new BufferedReader(new InputStreamReader(pongServerSocket.getInputStream()));
-        SendServerData sendData = new SendServerData(out);
-        ReceiveServerData inData = new ReceiveServerData(in);
-        LoadMenu menuServer = new LoadMenu(connectionFrames.frameWindow, 0);
-        menuServer.loadSelector();
-        menuServer.setReceiveServer(inData);
-        inData.start();
-        menuServer.setSenderServer(sendData);
-        while(!inData.startGame || !menuServer.startGameServer){
-            System.out.println(inData.startGame);
-            try {
-                connectionFrames.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        sendData.start();
-
+        JFrame frm = connectionFrames.getWindow();
+        frm.setTitle("Player 1");
+        GameClient g = new GameClient(pongServerSocket.getInputStream(), pongServerSocket.getOutputStream());
+        frm.setContentPane(g);
+        frm.setSize(300, 700);
+        frm.setResizable(false);
+        frm.setVisible(true);
+        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

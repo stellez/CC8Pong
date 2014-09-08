@@ -36,6 +36,9 @@ public class LoadGame implements ImageObserver, KeyListener{
     Image rightRacketImage;
     SendClientData sendClientData;
     SendServerData sendServerData;
+    BufferedImage surfaceBackground;
+    BufferedImage surfaceRacketLeft;
+    BufferedImage surfaceRacketRigth;
 
     Graphics g;
 
@@ -56,6 +59,15 @@ public class LoadGame implements ImageObserver, KeyListener{
         YPosLeft = 0;
         gamerID = id;
         fileBackground = new File(pathBackground);
+        try {
+            surfaceBackground = ImageIO.read(fileBackground);
+            surfaceRacketLeft = ImageIO.read(leftRacketFile);
+            surfaceRacketRigth = ImageIO.read(leftRacketFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public LoadGame(){
@@ -107,17 +119,15 @@ public class LoadGame implements ImageObserver, KeyListener{
 
     public void background() {
         try{
-            surface = ImageIO.read(fileBackground);
+            surface = surfaceBackground;
             view = new JLabel(new ImageIcon(surface));
             frameWindow.setContentPane(view);
-            view.repaint();
+            //view.repaint();
             //size and show the frame
             frameWindow.pack();
             frameWindow.setVisible(true);
         } catch (HeadlessException hle) {
             System.err.println("Error caused by: " + hle);
-        } catch (IOException ioe){
-            System.out.println("Error caused by: " + ioe);
         }
     }
 
@@ -128,7 +138,7 @@ public class LoadGame implements ImageObserver, KeyListener{
             g.setColor(Color.blue);
             g.drawImage(ballImage, posX, posY, this);
             g.dispose();
-            view.repaint();
+            //view.repaint();
             //Despues de que ambos usuarios presionaron ENTER
             //GameObjects.setBallPositions(posX, posY);
         } catch (HeadlessException hle) {
@@ -141,36 +151,29 @@ public class LoadGame implements ImageObserver, KeyListener{
     public void racketLeft(int YPos){
         this.YPosLeft = YPos;
         try {
-            background();
-            racketRight(YPosRight);
+            //onlyBackground();
+            //racketRight(YPosRight);
             g = surface.getGraphics();
-            leftRacketImage = ImageIO.read(leftRacketFile);
-            g.setColor(Color.blue);
-            g.drawImage(leftRacketImage, -402, YPosLeft, this);
+            g.clearRect(1000,1000, 255, 50);
+            g.drawImage(surfaceRacketLeft, -402, YPosLeft, this);
             g.dispose();
             view.repaint();
         } catch (HeadlessException hle) {
             System.err.println("Error caused by: " + hle);
-        } catch (IOException ioe){
-            System.out.println("Error caused by: " + ioe);
         }
     }
 
     public void racketRight(int YPos){
         this.YPosRight = YPos;
         try {
-            background();
-            racketLeft(YPosLeft);
+            //onlyBackground();
+            //racketLeft(YPosLeft);
             g = surface.getGraphics();
-            rightRacketImage = ImageIO.read(rightRacketFile);
-            g.setColor(Color.blue);
-            g.drawImage(rightRacketImage, 400, YPosRight, this);
+            g.drawImage(surfaceRacketRigth, 400, YPosRight, this);
             g.dispose();
             view.repaint();
         } catch (HeadlessException hle) {
             System.err.println("Error caused by: " + hle);
-        } catch (IOException ioe){
-            System.out.println("Error caused by: " + ioe);
         }
     }
     public void setSenderClient(SendClientData scd){
@@ -182,7 +185,8 @@ public class LoadGame implements ImageObserver, KeyListener{
     }
 
     public void onlyBackground(){
-
+        view = new JLabel(new ImageIcon(surfaceBackground));
+        view.repaint();
     }
 
 }

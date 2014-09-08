@@ -10,50 +10,36 @@ import java.awt.event.ActionListener;
  */
 public class ConnectionFrames extends Thread {
 
-    public static String ipAddressFromJTextfield;
-    public static boolean waitForAConnectionPressed;
-    public static boolean makeConnectionPressed;
-    public JFrame frameWindow;
+    private static String ipAddressFromJTextfield ="N/A";
+    private JFrame window;
 
-    private void createConnectionWindow(){
+    public void createClientWindow(){
         try {
-            frameWindow = new JFrame("Pong");
-            //frameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            final JPanel viewPanel = new JPanel();
+            window = new JFrame("Client");
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JPanel viewPanel = new JPanel();
             viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
-            JLabel title = new JLabel("Pong Connection");
-            JButton connectTo = new JButton("Connect to");
-            final JButton waitForAConnection = new JButton("Wait for a connection");
-            frameWindow.setResizable(false);
-
-            viewPanel.add(title);
+            final JTextField ipAddressJTextfield = new JTextField();
+            JButton connectTo = new JButton("Connect");
+            viewPanel.add(new JLabel("IP Adress: "));
+            viewPanel.add(ipAddressJTextfield);
             viewPanel.add(connectTo);
-            viewPanel.add(waitForAConnection);
-            frameWindow.add(viewPanel);
-            frameWindow.pack();
-            frameWindow.setSize(250,250);
-            frameWindow.setVisible(true);
+            window.setResizable(false);
+            window.add(viewPanel);
+            window.pack();
+            window.setSize(250,250);
+            window.setVisible(true);
             connectTo.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    createConnectToWindow(frameWindow, viewPanel);
+                    ipAddressFromJTextfield = ipAddressJTextfield.getText();
+                    if(ipAddressFromJTextfield.isEmpty()){
+                        ipAddressFromJTextfield = "localhost";
+                    }
+                    System.out.println(ipAddressFromJTextfield);
                 }
             });
-            waitForAConnection.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    createWaitingForAConnectionWindow(frameWindow, viewPanel);
-                    waitForAConnectionPressed = true;
-                        /*LoadMenu loadMenuServer = new LoadMenu(frameWindow, 0);
-                        try {
-                            loadMenuServer.loadStartMenu();
-                            loadMenuServer.loadSelector();
-                        } catch (Exception e) {
-                            System.out.println("Error caused by: " + e);
-                            e.printStackTrace();
-                        }*/
-                    }
-            });
+
         }catch(HeadlessException hle){
             System.err.println("Error caused by: " + hle);
         }catch(Exception e){
@@ -61,57 +47,29 @@ public class ConnectionFrames extends Thread {
         }
     }
 
-    private void createConnectToWindow(final JFrame jframe, JPanel panel){
-        panel.removeAll();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        JLabel title = new JLabel("Insert the connection fields");
-        final JTextField ipAddressJTextfield = new JTextField();
-        JButton makeConnection = new JButton("Connect");
-        makeConnection.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                ipAddressFromJTextfield = ipAddressJTextfield.getText();
-                if (ipAddressFromJTextfield == null){
-                    ipAddressFromJTextfield = "localhost";
-                }
-                makeConnectionPressed = true;
-                /*LoadMenu loadMenuClient = new LoadMenu(jframe, 1);
-                try {
-                    loadMenuClient.loadStartMenu();
-                    loadMenuClient.loadSelector();
-                } catch (Exception e) {
-                    System.err.println("Error caused by: " + e);
-                }*/
-            }
-        });
-        panel.add(title);
-        panel.add(new JLabel("IP Adress: "));
-        panel.add(ipAddressJTextfield);
-        panel.add(makeConnection);
-        jframe.add(panel);
-        jframe.pack();
-        jframe.setSize(250,250);
-        //Show it.
-        jframe.setVisible(true);
-    }
-
-    private void createWaitingForAConnectionWindow(JFrame frameWindow, JPanel panel){
+    public void createServerWindow(){
         try {
-            panel.removeAll();
+            window = new JFrame("Server");
+            JPanel panel= new JPanel();
             panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             JLabel title = new JLabel("Waiting for a connection...");
             panel.add(title);
-            frameWindow.add(panel);
-            frameWindow.pack();
-            frameWindow.setSize(250, 250);
-            frameWindow.setVisible(true);
+            window.add(panel);
+            window.pack();
+            window.setSize(250, 250);
+            window.setVisible(true);
         }catch(Exception e){
             System.err.println("Error caused by: " + e);
             e.printStackTrace();
         }
     }
 
-    public void run(){
-        createConnectionWindow();
+    public String getIPAddress(){
+        return ipAddressFromJTextfield;
+    }
+
+    public JFrame getWindow(){
+        return window;
     }
 }
