@@ -109,8 +109,10 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
             if (ballX + ballSize >= topPadX && ballX <= topPadX + padW)
                 velY = -velY;
 
+        /*
         ballX += velX;
         ballY += velY;
+        */
 
         // pressed keys
         if (keys.size() == 1) {
@@ -172,8 +174,6 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
     public void run(){
         String[] dataFragments;
         String code;
-        String ballX;
-        String ballY;
         String padTop;
         String padBottom;
         String scoreL;
@@ -181,16 +181,14 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
         String dataReceived;
         try {
             while(true){
-                System.out.println("Executing run method");
                 dataReceived = clientIn.readLine();
-                System.out.println("Data Received is: " + dataReceived);
                 dataFragments = dataReceived.split(",");
                 code = dataFragments[0];
                 if(dataFragments != null) {
                     if (code.equals("00")) {
                         System.out.println("Received Ball info");
-                        ballX = dataFragments[1];
-                        ballY = dataFragments[2];
+                        ballX = Double.parseDouble(dataFragments[1]);
+                        ballY = Double.parseDouble(dataFragments[2]);
                     } else if (code.equals("01") || code.equals("10")) {
                         if (code.equals("01")) {
                             padTop = dataFragments[1];
