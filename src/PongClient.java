@@ -18,19 +18,23 @@ public class PongClient {
             System.out.println();
             Thread.sleep(1000);
         };
-        Socket pongClientSocket = new Socket(connectionFrames.getIPAddress(), 4502);
-        System.out.println("Connection Accepted");
-        JFrame frm = connectionFrames.getWindow();
-        frm.dispose();
-        frm = new JFrame();
-        frm.setTitle("Player 2");
-        GameClient g = new GameClient(pongClientSocket.getInputStream(), pongClientSocket.getOutputStream());
-        frm.setContentPane(g);
-        frm.setSize(300, 700);
-        frm.setResizable(false);
-        frm.setVisible(true);
-        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Thread clientReceiver = new Thread(g);
-        clientReceiver.start();
+        try {
+            Socket pongClientSocket = new Socket(connectionFrames.getIPAddress(), 4502);
+            System.out.println("Connection Accepted");
+            JFrame frm = connectionFrames.getWindow();
+            frm.dispose();
+            frm = new JFrame();
+            frm.setTitle("Player 2");
+            GameClient g = new GameClient(pongClientSocket.getInputStream(), pongClientSocket.getOutputStream());
+            frm.setContentPane(g);
+            frm.setSize(300, 700);
+            frm.setResizable(false);
+            frm.setVisible(true);
+            frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            Thread clientReceiver = new Thread(g);
+            clientReceiver.start();
+        } catch (IOException ioe) {
+            System.out.println("Error making the connection, not found a server aplication");
+        }
     }
 }
