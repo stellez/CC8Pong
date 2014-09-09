@@ -5,11 +5,12 @@ import java.io.PrintWriter;
  */
 public class Ball extends Thread {
     private PrintWriter outBuffer;
-    private int xPosition, yPosition;
+    private double xPosition, yPosition;
     private String data, code;
 
     public Ball(PrintWriter outServer){
         this.outBuffer = outServer;
+       this.outBuffer.flush();
         xPosition = yPosition = 0;
         code = "00";
         data = code;
@@ -18,14 +19,14 @@ public class Ball extends Thread {
     public void run(){
         try {
             outBuffer.println(data);
-            Thread.sleep(500);
             outBuffer.flush();
+            Thread.sleep(500);
         }catch(Exception e){
             System.out.println("Error, " + e);
         }
     }
 
-    public void prepareData(int x, int y){
+    public void prepareData(double x, double y){
         xPosition = x;
         yPosition = y;
         data = code + "," + xPosition + "," + yPosition;
