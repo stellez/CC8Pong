@@ -85,35 +85,6 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        /*
-        // side walls
-        if (ballX < 0 || ballX > width - ballSize) {
-            velX = -velX;
-        }
-        // top / down walls
-        if (ballY < 0) {
-            velY = -velY;
-            ++ scoreBottom;
-        }
-
-        if (ballY + ballSize > height) {
-            velY = -velY;
-            ++ scoreTop;
-        }
-        // bottom pad
-        if (ballY + ballSize >= height - padH - inset && velY > 0)
-            if (ballX + ballSize >= bottomPadX && ballX <= bottomPadX + padW)
-                velY = -velY;
-
-        // top pad
-        if (ballY <= padH + inset && velY < 0)
-            if (ballX + ballSize >= topPadX && ballX <= topPadX + padW)
-                velY = -velY;
-
-        /*
-        ballX += velX;
-        ballY += velY;
-        */
 
         // pressed keys
         if (keys.size() == 1) {
@@ -128,17 +99,6 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
                 clientOut.flush();
             }
         }
-
-        /*
-        // AI
-        double delta = ballX - topPadX;
-        if (delta > 0) {
-            topPadX += (topPadX < width - padW) ? SPEED : 0;
-        }
-        else if (delta < 0) {
-            topPadX -= (topPadX > 0) ? SPEED : 0;
-        }
-        */
 
         repaint();
     }
