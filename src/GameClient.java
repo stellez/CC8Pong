@@ -85,6 +85,7 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /*
         // side walls
         if (ballX < 0 || ballX > width - ballSize) {
             velX = -velX;
@@ -182,34 +183,40 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
         try {
             while(true){
                 dataReceived = clientIn.readLine();
-                dataFragments = dataReceived.split(",");
-                code = dataFragments[0];
-                if(dataFragments != null) {
-                    if (code.equals("00")) {
-                        System.out.println("Received Ball info");
-                        ballX = Double.parseDouble(dataFragments[1]);
-                        ballY = Double.parseDouble(dataFragments[2]);
-                    } else if (code.equals("01") || code.equals("10")) {
-                        if (code.equals("01")) {
-                            padTop = dataFragments[1];
-                            topPadX = Integer.parseInt(padTop);
-                        } else if (code.equals("10")){
-                            padBottom = dataFragments[1];
-                            bottomPadX = Integer.parseInt(padBottom);
+                if(dataReceived != null) {
+                    dataFragments = dataReceived.split(",");
+                    code = dataFragments[0];
+                    if (dataFragments != null) {
+                        if (code.equals("00")) {
+                            if (dataFragments[1] != null && dataFragments[2] != null) {
+                                ballX = Double.parseDouble(dataFragments[1]);
+                                ballY = Double.parseDouble(dataFragments[2]);
+                            }
+                        } else if (code.equals("01") || code.equals("10")) {
+                            if (code.equals("01")) {
+                                padTop = dataFragments[1];
+                                topPadX = Integer.parseInt(padTop);
+                            } else if (code.equals("10")) {
+                                padBottom = dataFragments[1];
+                                bottomPadX = Integer.parseInt(padBottom);
+                            }
+                        } else if (code.equals("11")) {
+                            if (dataFragments[1] != null && dataFragments[2] != null) {
+                                scoreTop = Integer.parseInt(dataFragments[1]);
+                                scoreBottom = Integer.parseInt(dataFragments[2]);
+                            }
                         }
-                    } else if (code.equals("11")) {
-                        System.out.println("Received Score info");
-                        scoreL = dataFragments[1];
-                        scoreR = dataFragments[2];
+                    } else {
+                        System.out.print("Error, bad formed data");
                     }
-                }else{
-                    System.out.print("Error, bad formed data");
                 }
             }
-        }
-        catch (IOException ioe) {
+        }catch (IOException ioe) {
             System.err.println("Error, caused by: " + ioe);
             ioe.printStackTrace();
+        }catch (Exception e){
+            System.err.println("Error, caused by: " + e);
+            e.printStackTrace();
         }
     }
 
