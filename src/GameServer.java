@@ -34,6 +34,7 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
 
     // score
     private int scoreTop, scoreBottom;
+    Score score;
 
     //Buffers
     private PrintWriter serverOut;
@@ -48,6 +49,7 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
         serverIn = new BufferedReader(new InputStreamReader(is));
         serverOut.flush();
         ball = new Ball(serverOut);
+        score = new Score(serverOut);
         first = true;
         t.setInitialDelay(100);
         t.start();
@@ -99,11 +101,13 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
         if (ballY < 0) {
             velY = -velY;
             ++ scoreBottom;
+            score.sendScore(scoreTop,scoreBottom);
         }
 
         if (ballY + ballSize > height) {
             velY = -velY;
             ++ scoreTop;
+            score.sendScore(scoreTop,scoreBottom);
         }
         // bottom pad
         if (ballY + ballSize >= height - padH - inset && velY > 0)
@@ -213,6 +217,7 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
         catch (IOException ioe) {
             System.err.println("Error, caused by: " + ioe);
             ioe.printStackTrace();
+            System.exit(0);
         }
     }
 }

@@ -13,14 +13,16 @@ public class Ball extends Thread {
        this.outBuffer.flush();
         xPosition = yPosition = 0;
         code = "00";
-        data = code;
+        data = code+",0,"+"0";
     }
 
     public void run(){
         try {
-            outBuffer.println(data);
-            outBuffer.flush();
-            Thread.sleep(500);
+            while(true) {
+                outBuffer.println(data);
+                outBuffer.flush();
+                Thread.sleep(100);
+            }
         }catch(Exception e){
             System.out.println("Error, " + e);
         }
