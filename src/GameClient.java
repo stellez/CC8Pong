@@ -116,9 +116,13 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
         if (keys.size() == 1) {
             if (keys.contains("LEFT")) {
                 bottomPadX -= (bottomPadX > 0) ? SPEED : 0;
+                clientOut.println("10,"+bottomPadX);
+                clientOut.flush();
             }
             else if (keys.contains("RIGHT")) {
                 bottomPadX += (bottomPadX < width - padW) ? SPEED : 0;
+                clientOut.println("10,"+bottomPadX);
+                clientOut.flush();
             }
         }
 
@@ -158,15 +162,9 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
         switch (code) {
             case KeyEvent.VK_LEFT:
                 keys.remove("LEFT");
-                clientOut.println("10,"+bottomPadX);
-                clientOut.flush();
-                System.out.println("Sended: " + "10,"+bottomPadX);
                 break;
             case KeyEvent.VK_RIGHT:
                 keys.remove("RIGHT");
-                clientOut.println("10,"+bottomPadX);
-                clientOut.flush();
-                System.out.println("Sended: " + "10,"+bottomPadX);
                 break;
         }
     }
@@ -196,11 +194,9 @@ public class GameClient extends JPanel implements KeyListener, ActionListener, R
                     } else if (code.equals("01") || code.equals("10")) {
                         if (code.equals("01")) {
                             padTop = dataFragments[1];
-                            System.out.println("Received top pad info");
                             topPadX = Integer.parseInt(padTop);
                         } else if (code.equals("10")){
                             padBottom = dataFragments[1];
-                            System.out.println("Received bottom pad info");
                             bottomPadX = Integer.parseInt(padBottom);
                         }
                     } else if (code.equals("11")) {
