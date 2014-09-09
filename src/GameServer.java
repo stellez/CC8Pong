@@ -30,6 +30,7 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
 
     // ball
     private double ballX, ballY, velX = 1, velY = 1, ballSize = 20;
+    Ball ball;
 
     // score
     private int scoreTop, scoreBottom;
@@ -38,6 +39,7 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
     private PrintWriter serverOut;
     private BufferedReader serverIn;
 
+
     public GameServer(InputStream is, OutputStream os) {
         addKeyListener(this);
         setFocusable(true);
@@ -45,9 +47,11 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
         serverOut = new PrintWriter(os);
         serverIn = new BufferedReader(new InputStreamReader(is));
         serverOut.flush();
+        ball = new Ball(serverOut);
         first = true;
         t.setInitialDelay(100);
         t.start();
+        ball.start();
     }
 
     @Override
@@ -113,7 +117,7 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
 
         ballX += velX;
         ballY += velY;
-
+        ball.prepareData(ballX,ballY);
         // pressed keys
         if (keys.size() == 1) {
             if (keys.contains("LEFT")) {
@@ -181,16 +185,13 @@ public class GameServer extends JPanel implements KeyListener, ActionListener, R
         String dataReceived;
         try {
             while(true){
-                System.out.println("Executing run method");
                 dataReceived = serverIn.readLine();
-                System.out.println("Data Received is: " + dataReceived);
                 dataFragments = dataReceived.split(",");
                 code = dataFragments[0];
                 if(dataFragments != null) {
                     if (code.equals("00")) {
                         System.out.println("Received Ball info");
-                        ballX = dataFragments[1];
-                        ballY = dataFragments[2];
+
                     } else if (code.equals("01") || code.equals("10")) {
                         if (code.equals("01")) {
                             padTop = dataFragments[1];
